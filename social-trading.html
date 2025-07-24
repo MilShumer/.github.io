@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CryptonIQ — Социальный Трейдинг</title>
+  <meta name="description" content="Социальный Трейдинг от CryptonIQ: копируйте сделки успешных трейдеров с подтвержденной историей и учитесь у лучших." />
+  <meta name="keywords" content="социальный трейдинг, копитрейдинг, крипто, инвестиции, CryptonIQ, успешные трейдеры" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: #e0e7ff;
+      min-height: 100vh;
+    }
+    .krona {
+      font-family: 'Krona One', sans-serif;
+    }
+    h1, h2, h3 {
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+    }
+    .fade-in-up.delay-100 { animation-delay: 0.1s; }
+    .fade-in-up.delay-200 { animation-delay: 0.2s; }
+    .fade-in-up.delay-300 { animation-delay: 0.3s; }
+    .fade-in-up.delay-400 { animation-delay: 0.4s; }
+    .fade-in-up.delay-500 { animation-delay: 0.5s; }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .btn-cta {
+      @apply bg-purple-600 text-white font-bold py-4 px-10 rounded-full shadow-lg hover:bg-purple-500 transition duration-300 ease-in-out transform hover:-translate-y-1;
+    }
+    .feature-card {
+      @apply bg-gradient-to-tr from-purple-900 via-purple-800 to-purple-900 rounded-xl p-6 shadow-xl border border-purple-700 hover:shadow-2xl hover:scale-105 transition-transform duration-300 ease-in-out;
+    }
+    ul.features-list {
+      list-style: none;
+      padding-left: 0;
+    }
+    ul.features-list li {
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 1.25rem;
+      font-size: 1.125rem;
+      line-height: 1.6;
+    }
+    ul.features-list li::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #a78bfa; /* purple-400 */
+      font-weight: 700;
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: #a78bfa;
+      color: #1f2937;
+      padding: 0.75rem 1rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(167, 139, 250, 0.6);
+      transition: background-color 0.3s ease-in-out;
+      display: none;
+      z-index: 100;
+    }
+    #scrollTopBtn:hover {
+      background-color: #c4b5fd;
+    }
+    .responsive-img {
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(167, 139, 250, 0.5);
+      max-width: 100%;
+      height: auto;
+      transition: transform 0.3s ease-in-out;
+    }
+    .responsive-img:hover {
+      transform: scale(1.05);
+    }
+    /* Navbar styles */
+    .navbar {
+      background-color: rgba(55, 0, 179, 0.9);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 2px 10px rgba(55, 0, 179, 0.5);
+    }
+    .navbar-menu a {
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+      color: #ddd6fe;
+    }
+    .navbar-menu a:hover {
+      background-color: rgba(167, 139, 250, 0.2);
+      color: #a78bfa;
+    }
+    .navbar-menu a.active {
+      color: #a78bfa;
+      font-weight: 700;
+      background-color: rgba(167, 139, 250, 0.3);
+    }
+    /* Interactive trader cards */
+    .trader-card {
+      background: #3b0764;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 8px 20px rgba(167, 139, 250, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .trader-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 30px rgba(167, 139, 250, 0.7);
+    }
+    .trader-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 9999px;
+      border: 3px solid #a78bfa;
+      margin-bottom: 1rem;
+      object-fit: cover;
+      box-shadow: 0 0 10px #a78bfa;
+    }
+    .trader-name {
+      font-family: 'Krona One', sans-serif;
+      font-size: 1.5rem;
+      color: #ddd6fe;
+      margin-bottom: 0.25rem;
+    }
+    .trader-stats {
+      color: #c4b5fd;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .btn-copy {
+      background-color: #a78bfa;
+      color: #1f2937;
+      font-weight: 700;
+      padding: 0.5rem 1.5rem;
+      border-radius: 9999px;
+      box-shadow: 0 4px 10px rgba(167, 139, 250, 0.6);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .btn-copy:hover {
+      background-color: #c4b5fd;
+      transform: translateY(-2px);
+    }
+    /* Section for unique features */
+    .unique-feature {
+      background: #4c1d95;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(167, 139, 250, 0.5);
+      color: #ddd6fe;
+      margin-bottom: 2rem;
+      transition: background-color 0.3s ease;
+    }
+    .unique-feature:hover {
+      background-color: #6d28d9;
+    }
+    .unique-feature h3 {
+      font-family: 'Krona One', sans-serif;
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+      color: #fbbf24;
+    }
+    .unique-feature p {
+      font-size: 1.125rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar py-4 px-6 fixed top-0 left-0 w-full z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="index.html" class="krona text-3xl text-yellow-400 tracking-widest hover:text-yellow-300 transition">CRYPTON<span class="text-white">IQ</span></a>
+      <div class="hidden md:flex space-x-8 font-semibold">
+        <a href="index.html" class="hover:text-yellow-400 transition">Главная</a>
+        <a href="ai-analytics.html" class="hover:text-yellow-400 transition">AI Аналитика</a>
+        <a href="social-trading.html" class="text-yellow-400 underline decoration-yellow-300 underline-offset-4">Социальный Трейдинг</a>
+        <a href="defi-aggregator.html" class="hover:text-yellow-400 transition">DeFi Агрегатор</a>
+        <a href="additional-services.html" class="hover:text-yellow-400 transition">Дополнительные Сервисы</a>
+      </div>
+      <button id="mobileMenuBtn" class="md:hidden text-yellow-400 focus:outline-none" aria-label="Открыть меню">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <div id="mobileMenu" class="hidden flex-col bg-purple-900 bg-opacity-95 text-indigo-100 font-semibold space-y-4 p-6 md:hidden">
+      <a href="index.html" class="hover:text-yellow-400 transition">Главная</a>
+      <a href="ai-analytics.html" class="hover:text-yellow-400 transition">AI Аналитика</a>
+      <a href="social-trading.html" class="text-yellow-400 underline decoration-yellow-300 underline-offset-4">Социальный Трейдинг</a>
+      <a href="defi-aggregator.html" class="hover:text-yellow-400 transition">DeFi Агрегатор</a>
+      <a href="additional-services.html" class="hover:text-yellow-400 transition">Дополнительные Сервисы</a>
+    </div>
+  </nav>
+
+  <main class="pt-28 pb-16 px-6 max-w-6xl mx-auto">
+    <h1 class="krona text-5xl text-center mb-12 text-yellow-400 drop-shadow-lg fade-in-up">Социальный Трейдинг: Учитесь у Лучших, Копируйте Успех</h1>
+
+    <section class="mb-16 fade-in-up delay-100 max-w-4xl mx-auto text-center">
+      <p class="text-lg text-purple-300 leading-relaxed mb-8">
+        Социальный трейдинг от CryptonIQ открывает вам двери в мир, где вы можете не просто наблюдать за успешными трейдерами, но и автоматически копировать их сделки. Это идеальное решение как для новичков, желающих учиться у опытных, так и для занятых инвесторов, стремящихся к пассивному доходу.
+      </p>
+      <div class="flex justify-center mb-8">
+        <img src="https://images.unsplash.com/photo-1556742400-0b3a0a7a3f0a?auto=format&fit=crop&w=800&q=80" alt="Social Trading Platform" class="responsive-img" loading="lazy" />
+      </div>
+      <p class="text-lg text-purple-300 leading-relaxed max-w-3xl mx-auto">
+        Наша платформа обеспечивает полную прозрачность: вы видите историю сделок, статистику доходности и уровень риска каждого трейдера. Выбирайте тех, кто соответствует вашей стратегии и целям, и позвольте их опыту работать на вас.
+      </p>
+    </section>
+
+    <section class="mb-16 fade-in-up delay-200 max-w-5xl mx-auto">
+      <h2 class="krona text-4xl text-center mb-10 text-yellow-300 drop-shadow-md">Преимущества Социального Трейдинга</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div class="feature-card">
+          <h3 class="krona text-2xl mb-3 text-yellow-400">Доступ к Экспертизе</h3>
+          <p>Используйте знания и опыт профессиональных трейдеров, даже если у вас нет времени на глубокий анализ рынка.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="krona text-2xl mb-3 text-yellow-400">Полный Контроль</h3>
+          <p>Вы полностью контролируете свой капитал и можете остановить копирование в любой момент. Устанавливайте лимиты риска.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="krona text-2xl mb-3 text-yellow-400">Прозрачность и Статистика</h3>
+          <p>Подробная статистика по каждому трейдеру, включая доходность, просадки, используемые активы и многое другое.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="krona text-2xl mb-3 text-yellow-400">Диверсификация</h3>
+          <p>Копируйте нескольких трейдеров с разными стратегиями для диверсификации вашего инвестиционного портфеля.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-20 fade-in-up delay-300 max-w-6xl mx-auto">
+      <h2 class="krona text-4xl text-center mb-12 text-yellow-300 drop-shadow-md">Топ Трейдеры для Копирования</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <!-- Trader Card 1 -->
+        <div class="trader-card" tabindex="0" aria-label="Трейдер Алексей, доходность 25%, риск средний">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Аватар Алексея" class="trader-avatar" />
+          <div class="trader-name">Алексей</div>
+          <div class="trader-stats">Доходность: <span class="font-semibold">25%</span> | Риск: <span class="font-semibold">Средний</span></div>
+          <button class="btn-copy" aria-label="Копировать сделки Алексея">Копировать</button>
+        </div>
+        <!-- Trader Card 2 -->
+        <div class="trader-card" tabindex="0" aria-label="Трейдер Мария, доходность 18%, риск низкий">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Аватар Марии" class="trader-avatar" />
+          <div class="trader-name">Мария</div>
+          <div class="trader-stats">Доходность: <span class="font-semibold">18%</span> | Риск: <span class="font-semibold">Низкий</span></div>
+          <button class="btn-copy" aria-label="Копировать сделки Марии">Копировать</button>
+        </div>
+        <!-- Trader Card 3 -->
+        <div class="trader-card" tabindex="0" aria-label="Трейдер Дмитрий, доходность 30%, риск высокий">
+          <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Аватар Дмитрия" class="trader-avatar" />
+          <div class="trader-name">Дмитрий</div>
+          <div class="trader-stats">Доходность: <span class="font-semibold">30%</span> | Риск: <span class="font-semibold">Высокий</span></div>
+          <button class="btn-copy" aria-label="Копировать сделки Дмитрия">Копировать</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="fade-in-up delay-400 max-w-4xl mx-auto text-center">
+      <h2 class="krona text-4xl mb-8 text-yellow-400 drop-shadow-md">Уникальные Возможности CryptonIQ Социального Трейдинга</h2>
+      <div class="space-y-8">
+        <div class="unique-feature">
+          <h3>Рейтинг Надежности Трейдеров</h3>
+          <p>Наш алгоритм оценивает надежность каждого трейдера на основе истории сделок, стабильности доходности и отзывов сообщества, помогая вам выбрать лучших.</p>
+        </div>
+        <div class="unique-feature">
+          <h3>Автоматическое Управление Рисками</h3>
+          <p>Настраивайте лимиты потерь и максимальный риск, а система автоматически регулирует копирование, чтобы защитить ваш капитал.</p>
+        </div>
+        <div class="unique-feature">
+          <h3>Интерактивный Аналитический Дашборд</h3>
+          <p>Отслеживайте в реальном времени эффективность копируемых трейдеров, анализируйте сделки и получайте уведомления о важных событиях.</p>
+        </div>
+        <div class="unique-feature">
+          <h3>Обучающие Вебинары и Сообщество</h3>
+          <p>Получайте доступ к эксклюзивным вебинарам, общайтесь с экспертами и другими инвесторами, чтобы постоянно повышать свои навыки.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="fade-in-up delay-500 text-center">
+      <h2 class="krona text-4xl mb-8 text-yellow-400 drop-shadow-md">Присоединяйтесь к сообществу

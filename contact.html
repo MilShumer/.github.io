@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты — CryptonIQ</title>
+  <meta name="description" content="Свяжитесь с CryptonIQ для получения поддержки, партнерства или общих вопросов.">
+  <meta name="keywords" content="контакты, CryptonIQ, поддержка, обратная связь, партнерство, адрес, email">
+  <meta property="og:title" content="Контакты — CryptonIQ">
+  <meta property="og:description" content="Свяжитесь с CryptonIQ для получения поддержки, партнерства или общих вопросов.">
+  <meta property="og:image" content="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a70670a6-14d5-4712-91f5-8e7f19d51afc.png">
+  <meta property="og:url" content="ВАШ_URL_САЙТА/contact.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Roboto', sans-serif; }
+    .krona { font-family: 'Krona One', sans-serif; }
+    .gradient-bg { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); }
+    /* Стили для навигации (скопированы из index.html) */
+    .navbar {
+      background-color: rgba(17, 24, 39, 0.8); /* gray-900 with transparency */
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .navbar-menu {
+      display: none;
+    }
+    .navbar-menu.open {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      background-color: rgba(17, 24, 39, 0.95);
+      position: absolute;
+      top: 100%;
+      left: 0;
+      padding: 1rem 0;
+      border-top: 1px solid #374151;
+    }
+    @media (min-width: 768px) { /* md breakpoint */
+      .navbar-menu {
+        display: flex;
+        flex-direction: row;
+        position: static;
+        background-color: transparent;
+        border-top: none;
+        padding: 0;
+      }
+      .navbar-toggle {
+        display: none;
+      }
+    }
+    .navbar-menu a.active {
+      color: #60a5fa; /* blue-400 */
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+  <!-- Navbar -->
+  <nav class="navbar py-4 px-6">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="index.html" class="krona text-2xl">CRYPTON<span class="text-yellow-300">IQ</span></a>
+      <button class="navbar-toggle md:hidden text-gray-100 focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      </button>
+      <div class="navbar-menu">
+        <a href="index.html" class="block md:inline-block text-gray-300 hover:text-blue-400 px-4 py-2">Главная</a>
+        <a href="features.html" class="block md:inline-block text-gray-300 hover:text-blue-400 px-4 py-2">Функции</a>
+        <a href="about.html" class="block md:inline-block text-gray-300 hover:text-blue-400 px-4 py-2">О нас</a>
+        <a href="contact.html" class="block md:inline-block text-gray-300 hover:text-blue-400 px-4 py-2">Контакты</a>
+        <!-- <a href="blog.html" class="block md:inline-block text-gray-300 hover:text-blue-400 px-4 py-2">Блог</a> -->
+      </div>
+    </div>
+  </nav>
+
+  <main class="py-16 px-6">
+    <div class="container mx-auto text-center max-w-3xl">
+      <h1 class="krona text-4xl md:text-5xl mb-8">Свяжитесь с нами</h1>
+      <p class="text-xl text-gray-300 mb-12">
+        У вас есть вопросы, предложения или вы хотите обсудить партнерство? Мы всегда рады помочь!
+      </p>
+
+      <div class="bg-gray-800 p-8 rounded-xl shadow-lg mb-12">
+        <h2 class="krona text-3xl mb-6">Отправьте нам сообщение</h2>
+        <form class="space-y-6">
+          <div>
+            <label for="name" class="block text-gray-300 text-sm font-bold mb-2 text-left">Ваше имя:</label>
+            <input type="text" id="name" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-900 leading-tight focus:outline-none focus:shadow-outline bg-gray-200" placeholder="Иван Иванов">
+          </div>
+          <div>
+            <label for="email" class="block text-gray-300 text-sm font-bold mb-2 text-left">Ваш Email:</label>
+            <input type="email" id="email" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-900 leading-tight focus:outline-none focus:shadow-outline bg-gray-200" placeholder="ваш@email.com">
+          </div>
+          <div>
+            <label for="subject" class="block text-gray-300 text-sm font-bold mb-2 text-left">Тема:</label>
+            <input type="text" id="subject" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-900 leading-tight focus:outline-none focus:shadow-outline bg-gray-200" placeholder="Вопрос о продукте / Предложение о партнерстве">
+          </div>
+          <div>
+            <label for="message" class="block text-gray-300 text-sm font-bold mb-2 text-left">Сообщение:</label>
+            <textarea id="message" rows="6" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-900 leading-tight focus:outline-none focus:shadow-outline bg-gray-200" placeholder="Ваше сообщение..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-8 rounded-full">
+            Отправить сообщение
+          </button>
+        </form>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-gray-800 p-6 rounded-xl shadow-md">
+          <h3 class="krona text-xl mb-4">Общая информация</h3>
+          <p class="text-gray-400 mb-2">Email: <a href="mailto:info@cryptoniq.com" class="text-blue-400 hover:underline">info@cryptoniq.com</a></p>
+          <p class="text-gray-400">Телефон: +1 (123) 456-7890</p>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-xl shadow-md">
+          <h3 class="krona text-xl mb-4">Поддержка</h3>
+          <p class="text-gray-400 mb-2">Email: <a href="mailto:support@cryptoniq.com" class="text-blue-400 hover:underline">support@cryptoniq.com</a></p>
+          <p class="text-gray-400">Часы работы: Пн-Пт, 9:00 - 18:00 UTC</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-gray-800/50 py-10 px-6">
+    <div class="container mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <span class="krona text-2xl">CRYPTON<span class="text-yellow-300">IQ</span></span>
+        </div>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-blue-400">Условия</a>
+          <a href="#" class="hover:text-blue-400">Конфиденциальность</a>
+          <a href="#" class="hover:text-blue-400">Документация</a>
+          <a href="#" class="hover:text-blue-400">Twitter</a>
+        </div>
+      </div>
+      <div class="mt-10 pt-6 border-t border-gray-700 text-center text-gray-500 text-sm">
+        © 2024 CryptonIQ. Не является финансовым советом. Криптовалютные рынки волатильны — проводите собственные исследования.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Логика для мобильного меню (гамбургер-иконка)
+    const navbarToggle = document.querySelector('.navbar-toggle');
+    const navbarMenu = document.querySelector('.navbar-menu');
+
+    if (navbarToggle && navbarMenu) {
+      navbarToggle.addEventListener('click', () => {
+        navbarMenu.classList.toggle('open');
+      });
+    }
+
+    // Логика для активного состояния навигации
+    document.addEventListener('DOMContentLoaded', () => {
+      const currentPath = window.location.pathname.split('/').pop(); // Получаем имя текущего файла
+      const navLinks = document.querySelectorAll('.navbar-menu a');
+
+      navLinks.forEach(link => {
+        const linkPath = link.getAttribute('href');
+        if (linkPath === currentPath || (currentPath === '' && linkPath === 'index.html')) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+

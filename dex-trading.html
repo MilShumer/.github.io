@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CryptonIQ — DEX Торговля</title>
+  <meta name="description" content="DEX Торговля от CryptonIQ: торгуйте напрямую с вашего кошелька на децентрализованных биржах по лучшим ценам и с максимальной безопасностью." />
+  <meta name="keywords" content="DEX, децентрализованная биржа, торговля, крипто, CryptonIQ, Web3, кошелек, лучшие цены" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: #e0e7ff;
+      min-height: 100vh;
+    }
+    .krona {
+      font-family: 'Krona One', sans-serif;
+    }
+    h1, h2, h3 {
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+    }
+    .fade-in-up.delay-100 { animation-delay: 0.1s; }
+    .fade-in-up.delay-200 { animation-delay: 0.2s; }
+    .fade-in-up.delay-300 { animation-delay: 0.3s; }
+    .fade-in-up.delay-400 { animation-delay: 0.4s; }
+    .fade-in-up.delay-500 { animation-delay: 0.5s; }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .btn-cta {
+      @apply bg-yellow-400 text-gray-900 font-bold py-4 px-10 rounded-full shadow-lg hover:bg-yellow-300 transition duration-300 ease-in-out transform hover:-translate-y-1;
+    }
+    .feature-card {
+      @apply bg-gradient-to-tr from-yellow-900 via-yellow-800 to-yellow-900 rounded-xl p-6 shadow-xl border border-yellow-700 hover:shadow-2xl hover:scale-105 transition-transform duration-300 ease-in-out;
+    }
+    ul.features-list {
+      list-style: none;
+      padding-left: 0;
+    }
+    ul.features-list li {
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 1.25rem;
+      font-size: 1.125rem;
+      line-height: 1.6;
+    }
+    ul.features-list li::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #facc15; /* yellow-400 */
+      font-weight: 700;
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: #facc15;
+      color: #1f2937;
+      padding: 0.75rem 1rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(251, 191, 36, 0.6);
+      transition: background-color 0.3s ease-in-out;
+      display: none;
+      z-index: 100;
+    }
+    #scrollTopBtn:hover {
+      background-color: #fbbf24;
+    }
+    .responsive-img {
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(251, 191, 36, 0.5);
+      max-width: 100%;
+      height: auto;
+      transition: transform 0.3s ease-in-out;
+    }
+    .responsive-img:hover {
+      transform: scale(1.05);
+    }
+    /* Navbar styles */
+    .navbar {
+      background-color: rgba(17, 24, 39, 0.9);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    .navbar-menu a {
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+      color: #e0e7ff;
+    }
+    .navbar-menu a:hover {
+      background-color: rgba(251, 191, 36, 0.1);
+      color: #facc15;
+    }
+    .navbar-menu a.active {
+      color: #facc15;
+      font-weight: 700;
+      background-color: rgba(251, 191, 36, 0.2);
+    }
+    /* Swap form styles */
+    .swap-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #1f2937;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(251, 191, 36, 0.4);
+      color: #facc15;
+    }
+    .swap-header {
+      font-family: 'Krona One', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: #fbbf24;
+      text-shadow: 0 0 8px #fbbf24;
+    }
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #facc15;
+    }
+    select, input[type="number"] {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      border: none;
+      font-size: 1.125rem;
+      font-weight: 500;
+      background-color: #374151;
+      color: #facc15;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+      transition: background-color 0.3s ease;
+    }
+    select:hover, input[type="number"]:hover, select:focus, input[type="number"]:focus {
+      background-color: #4b5563;
+      outline: none;
+    }
+    button.swap-btn {
+      width: 100%;
+      background-color: #facc15;
+      color: #1f2937;
+      font-weight: 700;
+      padding: 1rem;
+      border-radius: 1.5rem;
+      font-size: 1.25rem;
+      box-shadow: 0 6px 15px rgba(251, 191, 36, 0.7);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+    button.swap-btn:hover {
+      background-color: #fbbf24;
+      transform: translateY(-3px);
+    }
+    .info-text {
+      font-size: 0.9rem;
+      color: #fbbf24;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+    .result-box {
+      margin-top: 1rem;
+      background-color: #374151;
+      padding: 1rem;
+      border-radius: 1rem;
+      font-size: 1.125rem;
+      text-align: center;
+      color: #facc15;
+      box-shadow: 0 4px 12px rgba(251, 191, 36, 0.5);
+    }
+    /* Loader */
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #facc15;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      animation: spin 1s linear infinite;
+      margin: 1rem auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar py-4 px-6 fixed top-0 left-0 w-full z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="index.html" class="krona text-3xl text-yellow-400 tracking-widest hover:text-yellow-300 transition">CRYPTON<span class="text-white">IQ</span></a>
+      <div class="hidden md:flex space-x-8 font-semibold">
+        <a href="index.html" class="hover:text-yellow-400 transition">Главная</a>
+        <a href="ai-analytics.html" class="hover:text-yellow-400 transition">AI Аналитика</a>
+        <a href="social-trading.html" class="hover:text-yellow-400 transition">Социальный Трейдинг</a>
+        <a href="defi-aggregator.html" class="hover:text-yellow-400 transition">DeFi Агрегатор</a>
+        <a href="dex-trading.html" class="text-yellow-400 underline decoration-yellow-300 underline-offset-4">DEX Торговля</a>
+        <a href="additional-services.html" class="hover:text-yellow-400 transition">Дополнительные Сервисы</a>
+      </div>
+      <button id="mobileMenuBtn" class="md:hidden text-yellow-400 focus:outline-none" aria-label="Открыть меню">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <div id="mobileMenu" class="hidden flex-col bg-gray-900 bg-opacity-95 text-gray-100 font-semibold space-y-4 p-6 md:hidden">
+      <a href="index.html" class="hover:text-yellow-400 transition">Главная</a>
+      <a href="ai-analytics.html" class="hover:text-yellow-400 transition">AI Аналитика</a>
+      <a href="social-trading.html" class="hover:text-yellow-400 transition">Социальный Трейдинг</a>
+      <a href="defi-aggregator.html" class="hover:text-yellow-400 transition">DeFi Агрегатор</a>
+      <a href="dex-trading.html" class="text-yellow-400 underline decoration-yellow-300 underline-offset-4">DEX Торговля</a>
+      <a href="additional-services.html" class="hover:text-yellow-400 transition">Дополнительные Сервисы</a>
+    </div>
+  </nav>
+
+  <main class="pt-28 pb-16 px-6 max-w-4xl mx-auto">
+    <h1 class="krona text-5xl text-center mb-12 text-yellow-400 drop-shadow-lg fade-in-up">DEX Торговля: Ваш Прямой Доступ к Децентрализованным Рынкам</h1>
+
+    <section class="mb-16 fade-in-up delay-100 text-center">
+      <p class="text-lg text-gray-300 leading-relaxed mb-8">
+        Торгуйте напрямую с вашего Web3-кошелька на лучших децентрализованных биржах. Наш агрегатор ликвидности найдет оптимальный маршрут для вашей сделки, минимизируя проскальзывание и комиссии.
+      </p>
+      <img src="https://images.unsplash.com/photo-1620321023372-9245197d9514?auto=format&fit=crop&w=800&q=80" alt="DEX Trading Interface" class="responsive-img mx-auto" loading="lazy" />
+    </section>
+
+    <section class="swap-container fade-in-up delay-200" aria-label="Форма обмена токенов">
+      <h2 class="swap-header">Совершите сделку</h2>
+      <form id="swapForm" class="space-y-6" autocomplete="off" novalidate>
+        <div class="input-group">
+          <label for="fromToken">Отдаете</label>
+          <select id="fromToken" required aria-required="true" aria-describedby="fromTokenHelp">
+            <option value="" disabled selected>Выберите токен</option>
+            <option value="ETH">ETH</option>
+            <option value="USDT">USDT</option>
+            <option value="DAI">DAI</option>
+            <option value="USDC">USDC</option>
+          </select>
+          <input type="number" id="fromAmount" min="0" step="any" placeholder="Количество" required aria-required="true" aria-describedby="fromAmountHelp" />
+          <div id="fromTokenHelp" class="info-text">Выберите токен и укажите количество для обмена.</div>
+        </div>
+
+        <div class="input-group">
+          <label for="toToken">Получаете</label>
+          <select id="toToken" required aria-required="true" aria-describedby="toTokenHelp">
+            <option value="" disabled selected>Выберите токен</option>
+            <option value="ETH">ETH</option>
+            <option value="USDT">USDT</option>
+            <option value="DAI">DAI</option>
+            <option value="USDC">USDC</option>
+          </select>
+          <input type="number" id="toAmount" placeholder="Рассчитывается автоматически" readonly aria-readonly="true" />
+          <div id="toTokenHelp" class="info-text">Количество, которое вы получите после обмена.</div>
+        </div>
+
+        <button type="submit" class="swap-btn" aria-live="polite" aria-busy="false">Обменять</button>
+        <div id="swapStatus" class="info-text" role="status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <section class="mb-16 fade-in-up delay-300">
+      <h2 class="krona text-4xl text-center mb-10 text-yellow-300 drop-shadow-md">Преимущества DEX Торговли с CryptonIQ</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div class="feature-card">
+          <h3 class="krona text-2xl mb-3 text-yellow-400">Безопасность и Контроль</h3>
+          <p>Ваши средства всегда остаются в вашем кошельке, что исключает риски централизованных бирж.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="krona text-2xl mb-3 text-yellow-400">Оптимальный Роутинг</h3>
+          <p>Мы автоматически выбираем лучший маршрут для обмена, минимизируя проскальзывание и комиссии.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="krona text-2xl mb-3 text-yellow-400">Поддержка Множества Токенов</h3>
+          <p>Доступ к тысячам токенов на популярных DEX и блокчейнах.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="krona text-2xl mb-3 text-yellow-400">Простота Использования</h3>
+          <p>Интуитивно понятный интерфейс для быстрого и удобного обмена.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="fade-in-up delay-400 text-center">
+      <h2 class="krona text-4xl mb-8 text-yellow-400 drop-shadow-md">Начните торговать на DEX уже сегодня!</h2>
+      <button id="open-start-modal" class="btn-cta" aria-label="Начать бесплатную пробную версию">
+        Начать бесплатную пробную версию →
+      </button>
+    </section>
+  </main>
+
+  <button id="scrollTopBtn" aria-label="Наверх" title="Наверх">↑</button>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Scroll to top button
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollTopBtn.style.display = 'block';
+      } else {
+        scrollTopBtn.style.display = 'none';
+      }
+    });
+    scrollTopBtn.addEventListener('click', ()
